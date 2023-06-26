@@ -71,7 +71,6 @@ public static class HostBuilderExtensions
         string configSectionPath)
     {
         ArgumentNullException.ThrowIfNull(hostBuilder);
-        ArgumentNullException.ThrowIfNull(ConnectionOptions.DefaultKey);
         ArgumentNullException.ThrowIfNull(configSectionPath);
         return hostBuilder
             .AddRabbitMqConnectionOptions(ConnectionOptions.DefaultKey, configSectionPath)
@@ -217,7 +216,7 @@ public static class HostBuilderExtensions
             VirtualHost = options.VirtualHost,
             ClientProvidedName = options.ClientProvidedName,
             Ssl = options.SslOptions is null
-                ? null
+                ? new()
                 : new SslOption
                 {
                     AcceptablePolicyErrors = options.SslOptions.AcceptablePolicyErrors,
