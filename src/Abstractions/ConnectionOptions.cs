@@ -53,11 +53,11 @@ public class ConnectionOptions
     /// Gets or sets the ssl options.
     /// </summary>
     /// <value>The ssl options.</value>
-    public SslOptions? SslOptions { get; set; }
+    public SslOptions? SslOptions { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the client provided name.
     /// </summary>
     /// <value>The client provided name.</value>
-    public string? ClientProvidedName { get; set; } = typeof(ConnectionOptions).Assembly.FullName;
+    public string? ClientProvidedName { get; set; } = typeof(ConnectionOptions).Namespace;
 }
