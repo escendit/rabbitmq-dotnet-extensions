@@ -1,5 +1,6 @@
 using Escendit.Orleans.Clients.RabbitMQ.Abstractions;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using Orleans.Runtime;
 using RabbitMQ.Stream.Client;
@@ -14,11 +15,13 @@ public class HostBuilderTests
     public HostBuilderTests()
     {
         _hostBuilder = Host
-            .CreateDefaultBuilder();
+            .CreateDefaultBuilder()
+            .ConfigureServices(services => services
+                .TryAddSingleton(typeof(IKeyedServiceCollection<,>), typeof(KeyedServiceCollection<,>)));
     }
     
     [Fact]
-    [UnitTest]
+    [IntegrationTest]
     public void Test1()
     {
         var host = _hostBuilder
