@@ -18,8 +18,6 @@ using Microsoft.Extensions.Options;
     DynamicallyAccessedMemberTypes.All)]
 public static partial class HostBuilderExtensions
 {
-    private const string ClientPropertyOptionsNameKey = "x-dotnet-options-name";
-
     /// <summary>
     /// Add Rabbit Mq Connection Factory.
     /// </summary>
@@ -149,7 +147,7 @@ public static partial class HostBuilderExtensions
                 },
             ClientProperties = new Dictionary<string, object>
             {
-                { ClientPropertyOptionsNameKey, name },
+                { Abstractions.Constants.ClientPropertyOptionsNameKey, name },
             },
         };
     }
