@@ -138,7 +138,7 @@ public static partial class HostBuilderExtensions
         ArgumentNullException.ThrowIfNull(serviceProvider);
         ArgumentNullException.ThrowIfNull(name);
         var connectionFactory = serviceProvider.GetRequiredServiceByName<IConnectionFactory>(name);
-        var optionName = connectionFactory.ClientProperties[ClientPropertyOptionsNameKey] as string;
+        var optionName = connectionFactory.ClientProperties[Abstractions.Constants.ClientPropertyOptionsNameKey] as string;
         var options = serviceProvider.GetOptionsByName<ConnectionOptions>(optionName);
         return Task
             .Run(() =>
