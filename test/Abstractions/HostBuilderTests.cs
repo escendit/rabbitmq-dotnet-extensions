@@ -120,7 +120,7 @@ public class HostBuilderTests
         var host = _hostBuilder
             .AddRabbitMqConnectionOptions("test", options =>
             {
-                options.Endpoints.Add(new Endpoint { HostName = "localhost", Port = 5552 });
+                options.Endpoints.Add(new Endpoint { HostName = "localhost" });
             })
             .Build();
 
