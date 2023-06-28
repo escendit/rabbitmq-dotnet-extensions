@@ -16,13 +16,90 @@ using Microsoft.Extensions.Options;
 public static class WebApplicationBuilderExtensions
 {
     /// <summary>
-    /// Add Rabbit Mq Stream Client.
+    /// Add Rabbit Mq Stream System As Default.
+    /// </summary>
+    /// <param name="webApplicationBuilder">The initial web application builder.</param>
+    /// <param name="configureOptions">The configure options.</param>
+    /// <returns>The updated web application builder.</returns>
+    public static WebApplicationBuilder AddRabbitMqStreamSystemAsDefault(
+        this WebApplicationBuilder webApplicationBuilder,
+        Action<ConnectionOptions> configureOptions)
+    {
+        ArgumentNullException.ThrowIfNull(webApplicationBuilder);
+        ArgumentNullException.ThrowIfNull(ConnectionOptions.DefaultKey);
+        ArgumentNullException.ThrowIfNull(configureOptions);
+        webApplicationBuilder
+            .Host
+            .AddRabbitMqStreamSystemAsDefault(configureOptions);
+        return webApplicationBuilder;
+    }
+
+    /// <summary>
+    /// Add Rabbit Mq Stream System As Default.
+    /// </summary>
+    /// <param name="webApplicationBuilder">The initial web application builder.</param>
+    /// <param name="configureOptions">The configure options.</param>
+    /// <returns>The updated web application builder.</returns>
+    public static WebApplicationBuilder AddRabbitMqStreamSystemAsDefault(
+        this WebApplicationBuilder webApplicationBuilder,
+        Action<OptionsBuilder<ConnectionOptions>> configureOptions)
+    {
+        ArgumentNullException.ThrowIfNull(webApplicationBuilder);
+        ArgumentNullException.ThrowIfNull(ConnectionOptions.DefaultKey);
+        ArgumentNullException.ThrowIfNull(configureOptions);
+        webApplicationBuilder
+            .Host
+            .AddRabbitMqStreamSystemAsDefault(configureOptions);
+        return webApplicationBuilder;
+    }
+
+    /// <summary>
+    /// Add Rabbit Mq Stream System As Default.
+    /// </summary>
+    /// <param name="webApplicationBuilder">The initial web application builder.</param>
+    /// <param name="configSectionPath">The config section path.</param>
+    /// <returns>The updated web application builder.</returns>
+    public static WebApplicationBuilder AddRabbitMqStreamSystemAsDefault(
+        this WebApplicationBuilder webApplicationBuilder,
+        string configSectionPath)
+    {
+        ArgumentNullException.ThrowIfNull(webApplicationBuilder);
+        ArgumentNullException.ThrowIfNull(configSectionPath);
+        webApplicationBuilder
+            .Host
+            .AddRabbitMqStreamSystemAsDefault(configSectionPath);
+        return webApplicationBuilder;
+    }
+
+    /// <summary>
+    /// Add Rabbit Mq Stream System From Options As Default.
+    /// </summary>
+    /// <remarks>
+    /// It needs provided connection options.
+    /// </remarks>
+    /// <param name="webApplicationBuilder">The initial web application builder.</param>
+    /// <param name="optionName">The named option.</param>
+    /// <returns>The updated web application builder.</returns>
+    public static WebApplicationBuilder AddRabbitMqStreamSystemFromOptionAsDefault(
+        this WebApplicationBuilder webApplicationBuilder,
+        string optionName)
+    {
+        ArgumentNullException.ThrowIfNull(webApplicationBuilder);
+        ArgumentNullException.ThrowIfNull(optionName);
+        webApplicationBuilder
+            .Host
+            .AddRabbitMqStreamSystemFromOptionAsDefault(optionName);
+        return webApplicationBuilder;
+    }
+
+    /// <summary>
+    /// Add Rabbit Mq Stream System.
     /// </summary>
     /// <param name="webApplicationBuilder">The initial web application builder.</param>
     /// <param name="name">The name.</param>
     /// <param name="configureOptions">The configure options.</param>
     /// <returns>The updated web application builder.</returns>
-    public static WebApplicationBuilder AddRabbitMqStreamClient(
+    public static WebApplicationBuilder AddRabbitMqStreamSystem(
         this WebApplicationBuilder webApplicationBuilder,
         string name,
         Action<ConnectionOptions> configureOptions)
@@ -37,13 +114,13 @@ public static class WebApplicationBuilderExtensions
     }
 
     /// <summary>
-    /// Add Rabbit Mq Stream Client.
+    /// Add Rabbit Mq Stream System.
     /// </summary>
     /// <param name="webApplicationBuilder">The initial web application builder.</param>
     /// <param name="name">The name.</param>
     /// <param name="configureOptions">The configure options.</param>
     /// <returns>The updated web application builder.</returns>
-    public static WebApplicationBuilder AddRabbitMqStreamClient(
+    public static WebApplicationBuilder AddRabbitMqStreamSystem(
         this WebApplicationBuilder webApplicationBuilder,
         string name,
         Action<OptionsBuilder<ConnectionOptions>> configureOptions)
@@ -58,13 +135,13 @@ public static class WebApplicationBuilderExtensions
     }
 
     /// <summary>
-    /// Add Rabbit Mq Stream Client.
+    /// Add Rabbit Mq Stream System.
     /// </summary>
     /// <param name="webApplicationBuilder">The initial web application builder.</param>
     /// <param name="name">The name.</param>
     /// <param name="configSectionPath">The config section path.</param>
-    /// <returns>The updated host builder.</returns>
-    public static WebApplicationBuilder AddRabbitMqStreamClient(
+    /// <returns>The updated web application builder.</returns>
+    public static WebApplicationBuilder AddRabbitMqStreamSystem(
         this WebApplicationBuilder webApplicationBuilder,
         string name,
         string configSectionPath)
@@ -79,7 +156,7 @@ public static class WebApplicationBuilderExtensions
     }
 
     /// <summary>
-    /// Add Rabbit Mq Stream Client.
+    /// Add Rabbit Mq Stream System From Option.
     /// </summary>
     /// <remarks>
     /// It needs provided connection options.
@@ -87,8 +164,8 @@ public static class WebApplicationBuilderExtensions
     /// <param name="webApplicationBuilder">The initial web application builder.</param>
     /// <param name="name">The name.</param>
     /// <param name="optionName">The named option.</param>
-    /// <returns>The updated host builder.</returns>
-    public static WebApplicationBuilder AddRabbitMqStreamClientFromOption(
+    /// <returns>The updated web application builder.</returns>
+    public static WebApplicationBuilder AddRabbitMqStreamSystemFromOption(
         this WebApplicationBuilder webApplicationBuilder,
         string name,
         string optionName)
