@@ -8,4 +8,7 @@
     <PropertyGroup>
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
     </PropertyGroup>
+    <ItemGroup>
+        <None Pack="true" PackagePath="" Include="$(SolutionDir)/README.md" />
+    </ItemGroup>
 </Project>
