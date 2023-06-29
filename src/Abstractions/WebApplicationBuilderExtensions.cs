@@ -47,10 +47,11 @@ public static class WebApplicationBuilderExtensions
     {
         ArgumentNullException.ThrowIfNull(webApplicationBuilder);
         ArgumentNullException.ThrowIfNull(configureOptions);
-        webApplicationBuilder
-            .Services
-            .ConfigureOptions<ConnectionOptionsValidator>()
-            .AddOptions<ConnectionOptions>(ConnectionOptions.DefaultKey);
+        configureOptions
+            .Invoke(webApplicationBuilder
+                .Services
+                .ConfigureOptions<ConnectionOptionsValidator>()
+                .AddOptions<ConnectionOptions>(ConnectionOptions.DefaultKey));
         return webApplicationBuilder;
     }
 
