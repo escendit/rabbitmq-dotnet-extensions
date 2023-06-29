@@ -1,13 +1,16 @@
-using Escendit.Orleans.Clients.RabbitMQ.Abstractions;
+﻿// Copyright (c) Escendit Ltd. All Rights Reserved.
+// Licensed under the MIT. See LICENSE.txt file in the solution root for full license information.
+
+namespace Escendit.Orleans.Clients.RabbitMQ.StreamProtocol.Tests;
+
+using Abstractions;
+using global::Orleans.Runtime;
+using global::RabbitMQ.Stream.Client;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Orleans.Runtime;
-using RabbitMQ.Stream.Client;
 using Xunit.Categories;
-
-namespace Escendit.Orleans.Clients.RabbitMQ.StreamProtocol.Tests;
 
 /// <summary>
 /// Host Builder Tests.
@@ -16,6 +19,9 @@ public class HostBuilderTests
 {
     private readonly IHostBuilder _hostBuilder;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="HostBuilderTests"/> class.
+    /// </summary>
     public HostBuilderTests()
     {
         _hostBuilder = Host
@@ -23,7 +29,10 @@ public class HostBuilderTests
             .ConfigureServices(services => services
                 .TryAddSingleton(typeof(IKeyedServiceCollection<,>), typeof(KeyedServiceCollection<,>)));
     }
-    
+
+    /// <summary>
+    /// Test GetRequiredService StreamSystem Default FromConfigSectionPath.
+    /// </summary>
     [Fact]
     [IntegrationTest]
     public void Test_GetRequiredService_StreamSystem_Default_FromConfigSectionPath()
@@ -35,14 +44,17 @@ public class HostBuilderTests
             })
             .AddRabbitMqStreamSystemAsDefault("Path")
             .Build();
-        
+
         Assert.NotNull(host);
 
         var streamSystem = host.Services.GetRequiredServiceByName<StreamSystem>(ConnectionOptions.DefaultKey);
-        
+
         Assert.NotNull(streamSystem);
     }
 
+    /// <summary>
+    /// Test GetRequiredService StreamSystem Default FromOptions.
+    /// </summary>
     [Fact]
     [IntegrationTest]
     public void Test_GetRequiredService_StreamSystem_Default_FromOptions()
@@ -60,14 +72,17 @@ public class HostBuilderTests
                 options.VirtualHost = "/";
             })
             .Build();
-        
+
         Assert.NotNull(host);
 
         var streamSystem = host.Services.GetRequiredServiceByName<StreamSystem>(ConnectionOptions.DefaultKey);
-        
+
         Assert.NotNull(streamSystem);
     }
-    
+
+    /// <summary>
+    /// Test GetRequiredService StreamSystem Default FromOptionsBuilder.
+    /// </summary>
     [Fact]
     [IntegrationTest]
     public void Test_GetRequiredService_StreamSystem_Default_FromOptionsBuilder()
@@ -79,14 +94,17 @@ public class HostBuilderTests
             })
             .AddRabbitMqStreamSystemAsDefault(options => options.BindConfiguration("Path"))
             .Build();
-        
+
         Assert.NotNull(host);
 
         var streamSystem = host.Services.GetRequiredServiceByName<StreamSystem>(ConnectionOptions.DefaultKey);
-        
+
         Assert.NotNull(streamSystem);
     }
 
+    /// <summary>
+    /// Test GetRequiredService StreamSystem Test FromConfigSectionPath.
+    /// </summary>
     [Fact]
     [IntegrationTest]
     public void Test_GetRequiredService_StreamSystem_Test_FromConfigSectionPath()
@@ -98,14 +116,17 @@ public class HostBuilderTests
             })
             .AddRabbitMqStreamSystem("test", "Path")
             .Build();
-        
+
         Assert.NotNull(host);
 
         var streamSystem = host.Services.GetRequiredServiceByName<StreamSystem>("test");
-        
+
         Assert.NotNull(streamSystem);
     }
 
+    /// <summary>
+    /// Test GetRequiredService StreamSystem Test FromOptions.
+    /// </summary>
     [Fact]
     [IntegrationTest]
     public void Test_GetRequiredService_StreamSystem_Test_FromOptions()
@@ -123,14 +144,17 @@ public class HostBuilderTests
                 options.VirtualHost = "/";
             })
             .Build();
-        
+
         Assert.NotNull(host);
 
         var streamSystem = host.Services.GetRequiredServiceByName<StreamSystem>("test");
-        
+
         Assert.NotNull(streamSystem);
     }
-    
+
+    /// <summary>
+    /// Test GetRequiredService StreamSystem Test FromOptionsBuilder.
+    /// </summary>
     [Fact]
     [IntegrationTest]
     public void Test_GetRequiredService_StreamSystem_Test_FromOptionsBuilder()
@@ -142,11 +166,11 @@ public class HostBuilderTests
             })
             .AddRabbitMqStreamSystem("test", options => options.BindConfiguration("Path"))
             .Build();
-        
+
         Assert.NotNull(host);
 
         var streamSystem = host.Services.GetRequiredServiceByName<StreamSystem>("test");
-        
+
         Assert.NotNull(streamSystem);
     }
 }
