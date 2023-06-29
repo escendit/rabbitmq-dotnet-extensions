@@ -15,8 +15,6 @@ using Options;
     DynamicallyAccessedMemberTypes.All)]
 public static class HostBuilderExtensions
 {
-    private const string Default = "Default";
-
     /// <summary>
     /// Add Rabbit Mq Client Options As Default.
     /// </summary>
@@ -32,7 +30,7 @@ public static class HostBuilderExtensions
         return hostBuilder
             .ConfigureServices(services => services
                 .ConfigureOptions<ConnectionOptionsValidator>()
-                .AddOptions<ConnectionOptions>(Default)
+                .AddOptions<ConnectionOptions>(ConnectionOptions.DefaultKey)
                 .Configure(configureOptions));
     }
 
@@ -53,7 +51,7 @@ public static class HostBuilderExtensions
             {
                 configureOptions.Invoke(services
                     .ConfigureOptions<ConnectionOptionsValidator>()
-                    .AddOptions<ConnectionOptions>(Default));
+                    .AddOptions<ConnectionOptions>(ConnectionOptions.DefaultKey));
             });
     }
 
@@ -72,7 +70,7 @@ public static class HostBuilderExtensions
         return hostBuilder
             .ConfigureServices(services => services
                 .ConfigureOptions<ConnectionOptionsValidator>()
-                .AddOptions<ConnectionOptions>(Default)
+                .AddOptions<ConnectionOptions>(ConnectionOptions.DefaultKey)
                 .BindConfiguration(configSectionPath));
     }
 
