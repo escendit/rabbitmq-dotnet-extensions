@@ -1,14 +1,14 @@
-// Copyright (c) Escendit Ltd. All Rights Reserved.
+﻿// Copyright (c) Escendit Ltd. All Rights Reserved.
 // Licensed under the MIT. See LICENSE.txt file in the solution root for full license information.
-
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using Orleans;
-using Xunit.Categories;
 
 namespace Escendit.Orleans.Clients.RabbitMQ.Abstractions.Tests;
 
+using global::Orleans;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
+using Xunit.Categories;
 
 /// <summary>
 /// Service Collection Tests.
@@ -18,13 +18,18 @@ public class HostBuilderTests
     private readonly IHostBuilder _hostBuilder;
 
     /// <summary>
-    /// Service Collection Tests.
+    /// Initializes a new instance of the <see cref="HostBuilderTests"/> class.
     /// </summary>
     public HostBuilderTests()
     {
-        _hostBuilder = Host.CreateDefaultBuilder();
+        _hostBuilder = Host
+            .CreateDefaultBuilder()
+            .ConfigureAppConfiguration(builder =>
+            {
+                builder.AddJsonFile($"{Environment.CurrentDirectory}/../../../appsettings.json");
+            });
     }
-        
+
     /// <summary>
     /// Test - AddRabbitMqConnectionOptionsAsDefault - setting options.
     /// </summary>
@@ -42,7 +47,7 @@ public class HostBuilderTests
         var options = host
             .Services
             .GetOptionsByName<ConnectionOptions>(ConnectionOptions.DefaultKey);
-        
+
         Assert.NotNull(options);
     }
 
@@ -54,16 +59,13 @@ public class HostBuilderTests
     public void Test_AddRabbitMqConnectionOptionsAsDefault_OptionsBuilder()
     {
         var host = _hostBuilder
-            .AddRabbitMqConnectionOptionsAsDefault(options =>
-            {
-                options.Endpoints.Add(new Endpoint { HostName = "localhost", Port = 5552 });
-            })
+            .AddRabbitMqConnectionOptionsAsDefault(options => options.BindConfiguration("Path"))
             .Build();
 
         var options = host
             .Services
             .GetOptionsByName<ConnectionOptions>(ConnectionOptions.DefaultKey);
-        
+
         Assert.NotNull(options);
     }
 
@@ -75,20 +77,16 @@ public class HostBuilderTests
     public void Test_AddRabbitMqConnectionOptionsAsDefault_ConfigSectionPath()
     {
         var host = _hostBuilder
-            .ConfigureAppConfiguration(builder =>
-            {
-                builder.AddJsonFile($"{Environment.CurrentDirectory}/../../../appsettings.json");
-            })
             .AddRabbitMqConnectionOptionsAsDefault("Path")
             .Build();
 
         var options = host
             .Services
             .GetOptionsByName<ConnectionOptions>(ConnectionOptions.DefaultKey);
-        
+
         Assert.NotNull(options);
     }
-        
+
     /// <summary>
     /// Test - AddRabbitMqConnectionOptions - setting options.
     /// </summary>
@@ -106,7 +104,7 @@ public class HostBuilderTests
         var options = host
             .Services
             .GetOptionsByName<ConnectionOptions>("test");
-        
+
         Assert.NotNull(options);
     }
 
@@ -118,16 +116,13 @@ public class HostBuilderTests
     public void Test_AddRabbitMqConnectionOptions_OptionsBuilder()
     {
         var host = _hostBuilder
-            .AddRabbitMqConnectionOptions("test", options =>
-            {
-                options.Endpoints.Add(new Endpoint { HostName = "localhost" });
-            })
+            .AddRabbitMqConnectionOptions("test", options => options.BindConfiguration("Path"))
             .Build();
 
         var options = host
             .Services
             .GetOptionsByName<ConnectionOptions>("test");
-        
+
         Assert.NotNull(options);
     }
 
@@ -139,17 +134,13 @@ public class HostBuilderTests
     public void Test_AddRabbitMqConnectionOptions_ConfigSectionPath()
     {
         var host = _hostBuilder
-            .ConfigureAppConfiguration(builder =>
-            {
-                builder.AddJsonFile($"{Environment.CurrentDirectory}/../../../appsettings.json");
-            })
             .AddRabbitMqConnectionOptions("test", "Path")
             .Build();
 
         var options = host
             .Services
             .GetOptionsByName<ConnectionOptions>("test");
-        
+
         Assert.NotNull(options);
     }
 
