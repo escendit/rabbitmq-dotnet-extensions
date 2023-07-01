@@ -10,7 +10,7 @@ jobs:
     name: Build and analyze
     env:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-    if: ${{ vars.SONAR_TOKEN != null }}
+    if: ${{ secrets.SONAR_TOKEN != null }}
     runs-on: windows-latest
     steps:
       - name: Set up JDK 11
