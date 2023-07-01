@@ -1,11 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <Description>RabbitMQ Stream Client for Orleans</Description>
+        <PackageTags>orleans;rabbitmq;client;stream</PackageTags>
+    </PropertyGroup>
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App" />
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="RabbitMQ.Stream.Client" Version="1.5.0" />
+        <PackageReference Include="RabbitMQ.Stream.Client" Version="1.5.0"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Abstractions\Escendit.Orleans.Clients.RabbitMQ.Abstractions.csproj" />
+        <ProjectReference Include="..\Abstractions\Escendit.Orleans.Clients.RabbitMQ.Abstractions.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <None Pack="true" PackagePath="" Include="README.md"/>
     </ItemGroup>
 </Project>
