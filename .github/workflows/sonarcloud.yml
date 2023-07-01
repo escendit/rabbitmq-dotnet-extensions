@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     name: Build and analyze
-    if: ${{ secrets.SONAR_TOKEN != '' }}
+    if: ${{ SONAR_TOKEN != '' }}
     runs-on: windows-latest
     steps:
       - name: Set up JDK 11
@@ -43,7 +43,7 @@ jobs:
       - name: Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ${{ SONAR_TOKEN }}
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"escendit_Escendit.Orleans.Clients.RabbitMQ" /o:"escendit" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
