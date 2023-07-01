@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     name: Build and analyze
-    if: ${{ SONAR_TOKEN != '' }}
+    if: $SONAR_TOKEN != ''
     runs-on: windows-latest
     steps:
       - name: Set up JDK 11
