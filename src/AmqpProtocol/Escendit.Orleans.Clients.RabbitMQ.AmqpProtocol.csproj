@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <Description>RabbitMQ AMQP Client for Orleans</Description>
+        <PackageTags>orleans;rabbitmq;client;amqp</PackageTags>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="RabbitMQ.Client" Version="6.5.0"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Abstractions\Escendit.Orleans.Clients.RabbitMQ.Abstractions.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <None Pack="true" PackagePath="" Include="README.md"/>
+    </ItemGroup>
+</Project>
