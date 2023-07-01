@@ -123,4 +123,4 @@ var connectionOptions = serviceProvider.GetRequiredServiceByName<IConnection>("n
 
 If you'd like to contribute to Escendit.Orleans.Clients.RabbitMQ,
 please fork the repository and make changes as you'd like.
-Pull requests are warmly welcome.~~
+Pull requests are warmly welcome.
