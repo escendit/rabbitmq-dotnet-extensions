@@ -4,9 +4,6 @@
         <PackageTags>orleans;rabbitmq;client;stream</PackageTags>
     </PropertyGroup>
     <ItemGroup>
-        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
-    </ItemGroup>
-    <ItemGroup>
         <PackageReference Include="RabbitMQ.Stream.Client" Version="1.5.0"/>
     </ItemGroup>
     <ItemGroup>
