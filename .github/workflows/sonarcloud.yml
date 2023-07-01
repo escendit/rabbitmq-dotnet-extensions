@@ -1,6 +1,4 @@
 name: SonarCloud
-env:
-  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 on:
   push:
     branches:
@@ -10,6 +8,8 @@ on:
 jobs:
   build:
     name: Build and analyze
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
     if: $SONAR_TOKEN != ''
     runs-on: windows-latest
     steps:
