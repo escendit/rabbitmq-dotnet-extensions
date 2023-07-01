@@ -1,4 +1,4 @@
-~~# NuGet Package: Escendit.Orleans.Clients.RabbitMQ.AmqpProtocol
+# NuGet Package: Escendit.Orleans.Clients.RabbitMQ.AmqpProtocol
 
 Escendit.Orleans.Clients.RabbitMQ.AmqpProtocol is a NuGet package that provides the ability to register
 `IConnectionFactory` or `IConnection`. This package is suitable for both Worker (Console)
