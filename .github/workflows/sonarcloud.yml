@@ -63,7 +63,7 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin `
             /k:"escendit_Escendit.Orleans.Clients.RabbitMQ" `
             /o:"escendit" `
-            /v:${{ env.fullSemVer }} `
+            /v:${{ env.GitVersion_FullSemVer }} `
             /d:sonar.login="${{ secrets.SONAR_TOKEN }}" `
             /d:sonar.host.url="https://sonarcloud.io" `
             /d:sonar.cs.vstest.reportsPaths=**/TestResults/*.trx `
