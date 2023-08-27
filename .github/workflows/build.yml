@@ -31,10 +31,10 @@ jobs:
         run: dotnet pack --configuration Release --no-build --output pack/
       - name: Publish .NET Solution to GitHub Packages
         continue-on-error: true
-        run: dotnet nuget push pack/* --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+        run: dotnet nuget push pack/* --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
       - name: Publish .NET Solution to NuGet.org
         env:
           apikey: ${{ secrets.NUGET_ORG_KEY }}
         if: ${{ env.apikey != '' }}
-        run: dotnet nuget push pack/* --api-key ${{ secrets.NUGET_ORG_KEY }} --source nuget
+        run: dotnet nuget push pack/* --skip-duplicate --api-key ${{ secrets.NUGET_ORG_KEY }} --source nuget
         continue-on-error: true
