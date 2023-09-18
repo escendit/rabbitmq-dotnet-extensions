@@ -61,7 +61,7 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin `
-            /k:"escendit_Escendit.Orleans.Clients.RabbitMQ" `
+            /k:"escendit_rabbitmq-dotnet-extensions" `
             /o:"escendit" `
             /v:${{ env.GitVersion_FullSemVer }} `
             /d:sonar.login="${{ secrets.SONAR_TOKEN }}" `
