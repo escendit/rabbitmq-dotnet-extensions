@@ -4,7 +4,7 @@
         <PackageTags>orleans;rabbitmq;client;stream</PackageTags>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="RabbitMQ.Stream.Client" Version="1.7.0"/>
+        <PackageReference Include="RabbitMQ.Stream.Client" Version="1.7.3"/>
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Abstractions\Escendit.Orleans.Clients.RabbitMQ.Abstractions.csproj"/>
