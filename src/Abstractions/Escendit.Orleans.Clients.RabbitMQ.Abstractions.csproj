@@ -7,7 +7,7 @@
         <FrameworkReference Include="Microsoft.AspNetCore.App"/>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Microsoft.Orleans.Core" Version="7.1.2"/>
+        <PackageReference Include="Microsoft.Orleans.Core" Version="7.2.3"/>
     </ItemGroup>
     <ItemGroup>
         <None Pack="true" PackagePath="" Include="README.md"/>
