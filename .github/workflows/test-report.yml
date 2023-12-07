@@ -1,7 +1,8 @@
 name: dotnet test report
 on:
   workflow_run:
-    workflows: ['.NET']
+    workflows: 
+      - ".NET"
     types:
       - completed
 jobs:
