@@ -2,7 +2,7 @@ name: dotnet test report
 on:
   workflow_run:
     workflows: 
-      - ".NET"
+      - .NET
     types:
       - completed
 jobs:
