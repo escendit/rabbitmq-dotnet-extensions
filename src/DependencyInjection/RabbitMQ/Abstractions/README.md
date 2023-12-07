@@ -1,81 +1,74 @@
-# NuGet Package: Escendit.Orleans.Clients.RabbitMQ.Abstractions
+# RabbitMQ Client Extensions for .NET and Orleans
 
-Escendit.Orleans.Clients.RabbitMQ.Abstractions is a NuGet package that provides the ability to register
-connection options for RabbitMQ protocols. This package is suitable for both Worker (Console)
-and Web Applications, allowing you to easily configure and manage RabbitMQ connections within
-your Orleans-based projects.
+Escendit.Extensions.DependencyInjection.RabbitMQ.Abstractions is a NuGet package that provides 
+the ability to register connection options for RabbitMQ protocols.
 
 ## Installation
 
-To install Escendit.Orleans.Clients.RabbitMQ.Abstractions, run the following command in the Package Manager Console:
+To install Escendit.Extensions.DependencyInjection.RabbitMQ.Abstractions, run the following command in the Package Manager Console:
 
 ```powershell
-Install-Package Escendit.Orleans.Clients.RabbitMQ.Abstractions
+Install-Package Escendit.Extensions.DependencyInjection.RabbitMQ.Abstractions
 ```
 
 ## Usage
 
-Escendit.Orleans.Clients.RabbitMQ.Abstractions package is not intended to be used as a standalone package.
+Escendit.Extensions.DependencyInjection.RabbitMQ.Abstractions package is not intended to be used as a standalone package.
 It is meant to be used in conjunction with either:
-- Escendit.Orleans.Clients.RabbitMQ.StreamProtocol
-- Escendit.Orleans.Clients.RabbitMQ.AmqpProtocol.
+
+### Service Collection
+- Escendit.Extensions.DependencyInjection.RabbitMQ.AmqpProtocol
+- Escendit.Extensions.DependencyInjection.RabbitMQ.StreamProtocol
+
+### Hosting
+- Escendit.Extensions.Hosting.RabbitMQ.AmqpProtocol
+- Escendit.Extensions.Hosting.RabbitMQ.StreamProtocol
+
+
+### ASP.NET Core
+- Escendit.AspNetCore.Builder.RabbitMQ.AmqpProtocol
+- Escendit.AspNetCore.Builder.RabbitMQ.StreamProtocol
 
 There are several ways how to register connection options.
 
-### Host
+## Dependency Injection
 
-#### Register & Use with Default Options
+### Register & Use with Default Options
 
 ```csharp
-Host
-    .CreateDefaultBuilder()
+services
     .AddRabbitMqConnectionOptionsAsDefault(...)
 ```
 
+#### .NET 8
 ```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<ConnectionOptions>(ConnectionOptions.DefaultKey);
+var connectionOptions = serviceProvider.GetRequiredKeyedService<ConnectionOptions>(ConnectionOptions.DefaultKey);
 ```
 
-#### Register & Use with Named Options
+#### .NET 7
+```csharp
+var connectionOptions = serviceProvider.GetRequiredServiceByKey<object?, ConnectionOptions>(ConnectionOptions.DefaultKey);
+```
+
+### Register & Use with Named Options
 
 ```csharp
-Host
-    .CreateDefaultBuilder()
+services
     .AddRabbitMqConnectionOptions("name", ...)
 ```
 
+#### .NET 8
 ```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<ConnectionOptions>("name");
+var connectionOptions = serviceProvider.GetRequiredKeyedService<ConnectionOptions>("name");
 ```
 
-### Web Application
-
-#### Register & Use with Default Options
-
+#### .NET 7
 ```csharp
-WebApplication
-    .CreateBuilder()
-    .AddRabbitMqConnectionOptionsAsDefault(...)
-```
-
-```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<ConnectionOptions>(ConnectionOptions.DefaultKey);
-```
-
-#### Register & Use with Named Options
-
-```csharp
-WebApplication
-    .CreateBuilder()
-    .AddRabbitMqConnectionOptions("name", ...)
-```
-
-```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<ConnectionOptions>("name");
+var connectionOptions = serviceProvider.GetRequiredServiceByKey<object?, ConnectionOptions>("name");
 ```
 
 ## Contributing
 
-If you'd like to contribute to Escendit.Orleans.Clients.RabbitMQ,
+If you'd like to contribute to rabbitmq-dotnet-extensions,
 please fork the repository and make changes as you'd like.
 Pull requests are warmly welcome.

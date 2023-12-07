@@ -1,72 +1,52 @@
-# NuGet Package: Escendit.Orleans.Clients.RabbitMQ.StreamProtocol
+# RabbitMQ Client Extensions for .NET and Orleans
 
-Escendit.Orleans.Clients.RabbitMQ.StreamProtocol is a NuGet package that provides the ability to register
-`StreamSystem`. This package is suitable for both Worker (Console)
-and Web Applications, allowing you to easily configure and manage RabbitMQ connections within
-your Orleans-based projects.
+Escendit.Extensions.DependencyInjection.RabbitMQ.StreamProtocol is a NuGet package that provides the ability
+to register `StreamSystem`. This package is integrated with service collection.
 
 ## Installation
 
-To install Escendit.Orleans.Clients.RabbitMQ.StreamProtocol, run the following command in the Package Manager Console:
+To install Escendit.Extensions.DependencyInjection.RabbitMQ.StreamProtocol, run the following command in the Package Manager Console:
 
 ```powershell
-Install-Package Escendit.Orleans.Clients.RabbitMQ.StreamProtocol
+Install-Package Escendit.Extensions.DependencyInjection.RabbitMQ.StreamProtocol
 ```
 
 ## Usage
 
 There are several ways to register contracts that can be used in an application:
 
-### Host
-
-#### Register and use default `StreamSystem` with the newly named `ConnectionOptions` registration.
+### Register and use default `StreamSystem` with the newly named `ConnectionOptions` registration.
 
 ```csharp
-Host
-    .CreateDefaultBuilder()
+services
     .AddRabbitMqStreamSystemAsDefault(...)
 ```
 
+#### .NET 8
 ```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<StreamSystem>("Default");
+var streamSystem = serviceProvider.GetRequiredKeyedService<StreamSystem>("Default");
 ```
 
-#### Register and use `StreamSystem` with the newly named `ConnectionOptions` registration.
+#### .NET 7
+```csharp
+var streamSystem = serviceProvider.GetRequiredServiceByKey<object?, StreamSystem>("Default");
+```
+
+### Register and use `StreamSystem` with the newly named `ConnectionOptions` registration.
 
 ```csharp
-Host
-    .CreateDefaultBuilder()
+services
     .AddRabbitMqStreamSystem("name", ...)
 ```
 
+#### .NET 8
 ```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<StreamSystem>("name");
+var streamSystem = serviceProvider.GetRequiredKeyedService<StreamSystem>("name");
 ```
 
-### Web Application
-
-#### Register and use default `StreamSystem` with the newly named `ConnectionOptions` registration.
-
+#### .NET 7
 ```csharp
-WebApplication
-    .CreateBuilder()
-    .AddRabbitMqStreamSystemAsDefault(...)
-```
-
-```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<StreamSystem>("Default");
-```
-
-#### Register and use `StreamSystem` with the newly named `ConnectionOptions` registration.
-
-```csharp
-WebApplication
-    .CreateBuilder()
-    .AddRabbitMqStreamSystem("name", ...)
-```
-
-```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<StreamSystem>("name");
+var streamSystem = serviceProvider.GetRequiredServiceByName<object?, StreamSystem>("name");
 ```
 
 ## Contributing

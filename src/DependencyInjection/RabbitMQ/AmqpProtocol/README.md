@@ -1,59 +1,69 @@
-# NuGet Package: Escendit.Orleans.Clients.RabbitMQ.AmqpProtocol
+# RabbitMQ Client Extensions for .NET and Orleans
 
-Escendit.Orleans.Clients.RabbitMQ.AmqpProtocol is a NuGet package that provides the ability to register
-`IConnectionFactory` or `IConnection`. This package is suitable for both Worker (Console)
-and Web Applications, allowing you to easily configure and manage RabbitMQ connections within
-your Orleans-based projects.
+Escendit.Extensions.DependencyInjection.RabbitMQ.AmqpProtocol is a NuGet package that provides the ability
+to register `IConnectionFactory` or `IConnection`. This package is integrated with service collection.
 
 ## Installation
 
-To install Escendit.Orleans.Clients.RabbitMQ.AmqpProtocol, run the following command in the Package Manager Console:
+To install Escendit.Extensions.DependencyInjection.RabbitMQ.AmqpProtocol, run the following command in the Package Manager Console:
 
 ```powershell
-Install-Package Escendit.Orleans.Clients.RabbitMQ.AmqpProtocol
+Install-Package Escendit.Extensions.DependencyInjection.RabbitMQ.AmqpProtocol
 ```
 
 ## Usage
 
 There are several ways to register contracts that can be used in an application:
 
-### Host
-
-#### Register and use `IConnectionFactory` with the newly named `ConnectionOptions` registration.
+### Register and use `IConnectionFactory` with the newly named `ConnectionOptions` registration.
 
 ```csharp
-Host
-    .CreateDefaultBuilder()
+services
     .AddRabbitMqConnectionFactory("name", ...)
 ```
 
+#### .NET 8
 ```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<IConnectionFactory>("name");
+var connectionFactory = serviceProvider.GetRequiredKeyedService<IConnectionFactory>("name");
 ```
 
-#### Register and use `IConnectionFactory` with the existing `ConnectionOptions` registration.
-
-
+#### .NET 7
 ```csharp
-Host
-    .CreateDefaultBuilder()
-    .AddRabbitMqConnectionFactoryFromOption("name", "existing_name")
+var connectionFactory = serviceProvider.GetRequiredServiceByKey<object?, IConnectionFactory>("name");
 ```
 
+### Register and use `IConnectionFactory` with the existing `ConnectionOptions` registration.
+
 ```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<IConnectionFactory>("name");
+services
+    .AddRabbitMqConnectionFactoryFromOptions("name", "existing_name")
 ```
 
-#### Register and use `IConnection` with the newly named `ConnectionOptions` and `IConnectionFactory` registration.
+#### .NET 8
+```csharp
+var connectionFactory = serviceProvider.GetRequiredKeyedService<IConnectionFactory>("name");
+```
+
+#### .NET 7
+```csharp
+var connectionFactory = serviceProvider.GetRequiredServiceByKey<object?, IConnectionFactory>("name");
+```
+
+### Register and use `IConnection` with the newly named `ConnectionOptions` and `IConnectionFactory` registration.
 
 ```csharp
-Host
-    .CreateDefaultBuilder()
+services
     .AddRabbitMqConnection("name", ...)
 ```
 
+#### .NET 8
 ```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<IConnection>("name");
+var connectionFactory = serviceProvider.GetRequiredKeyedService<IConnection>("name");
+```
+
+#### .NET 7
+```csharp
+var connectionFactory = serviceProvider.GetRequiredServiceByKey<object? ,IConnection>("name");
 ```
 
 #### Register and use `IConnection` with the existing `IConnectionFactory` registration.
@@ -64,63 +74,19 @@ Host
     .AddRabbitMqConnectionFromFactory("name", "existing_name")
 ```
 
+#### .NET 8
 ```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<IConnection>("name");
+var connectionFactory = serviceProvider.GetRequiredServiceByName<IConnection>("name");
 ```
 
-### Web Application
 
-#### Register and use `IConnectionFactory` with the newly named `ConnectionOptions` registration.
-
+#### .NET 7
 ```csharp
-WebApplication
-    .CreateBuilder()
-    .AddRabbitMqConnectionFactory("name", ...)
-```
-
-```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<IConnectionFactory>("name");
-```
-
-#### Register and use `IConnectionFactory` with the existing `ConnectionOptions` registration.
-
-
-```csharp
-WebApplication
-    .CreateBuilder()
-    .AddRabbitMqConnectionFactoryFromOption("name", "existing_name")
-```
-
-```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<IConnectionFactory>("name");
-```
-
-#### Register and use `IConnection` with the newly named `ConnectionOptions` and `IConnectionFactory` registration.
-
-```csharp
-WebApplication
-    .CreateBuilder()
-    .AddRabbitMqConnection("name", ...)
-```
-
-```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<IConnection>("name");
-```
-
-#### Register and use `IConnection` with the existing `IConnectionFactory` registration.
-
-```csharp
-WebApplication
-    .CreateBuilder()
-    .AddRabbitMqConnectionFromFactory("name", "existing_name")
-```
-
-```csharp
-var connectionOptions = serviceProvider.GetRequiredServiceByName<IConnection>("name");
+var connectionFactory = serviceProvider.GetRequiredServiceByKey<object?, IConnection>("name");
 ```
 
 ## Contributing
 
-If you'd like to contribute to Escendit.Orleans.Clients.RabbitMQ,
+If you'd like to contribute to rabbitmq-dotnet-extensions,
 please fork the repository and make changes as you'd like.
 Pull requests are warmly welcome.
