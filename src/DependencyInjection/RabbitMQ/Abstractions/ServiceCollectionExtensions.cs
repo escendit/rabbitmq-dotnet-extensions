@@ -30,6 +30,11 @@ public static class ServiceCollectionExtensions
             .ConfigureOptions<ConnectionOptionsValidator>()
             .AddOptions<ConnectionOptions>(ConnectionOptions.DefaultKey)
             .Configure(configureOptions);
+
+        // also register without a name.
+        services
+            .AddOptions<ConnectionOptions>()
+            .Configure(configureOptions);
         return services;
     }
 
@@ -48,6 +53,10 @@ public static class ServiceCollectionExtensions
         configureOptions.Invoke(services
             .ConfigureOptions<ConnectionOptionsValidator>()
             .AddOptions<ConnectionOptions>(ConnectionOptions.DefaultKey));
+
+        // also register without a name.
+        configureOptions.Invoke(services
+            .AddOptions<ConnectionOptions>());
         return services;
     }
 
@@ -66,6 +75,11 @@ public static class ServiceCollectionExtensions
         services
             .ConfigureOptions<ConnectionOptionsValidator>()
             .AddOptions<ConnectionOptions>(ConnectionOptions.DefaultKey)
+            .BindConfiguration(configSectionPath);
+
+        // also register without a name.
+        services
+            .AddOptions<ConnectionOptions>()
             .BindConfiguration(configSectionPath);
         return services;
     }
@@ -143,13 +157,13 @@ public static class ServiceCollectionExtensions
     /// <param name="factory">The factory.</param>
     /// <typeparam name="TService">The service type.</typeparam>
     /// <returns>The updated service collection.</returns>
-    internal static IServiceCollection AddService<TService>(this IServiceCollection services, string name, Func<IServiceProvider, string, TService> factory)
+    internal static IServiceCollection AddService<TService>(this IServiceCollection services, string name, Func<IServiceProvider, object?, TService> factory)
         where TService : class
     {
 #if NET8_0_OR_GREATER
         return services.AddKeyedSingleton(name, factory);
 #else
-        return services.AddSingletonNamedService(name, factory);
+        return services.AddSingletonKeyedService(name, factory);
 #endif
     }
 }

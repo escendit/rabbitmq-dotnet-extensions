@@ -82,30 +82,35 @@ public static partial class ServiceCollectionExtensions
     /// </remarks>
     /// <param name="services">The initial service collection.</param>
     /// <param name="name">The name.</param>
-    /// <param name="optionName">The named option.</param>
+    /// <param name="optionsName">The named option.</param>
     /// <returns>The updated service collection.</returns>
     public static IServiceCollection AddRabbitMqConnectionFactoryFromOptions(
         this IServiceCollection services,
         string name,
-        string optionName)
+        string optionsName)
     {
         ArgumentNullException.ThrowIfNull(services);
         ArgumentNullException.ThrowIfNull(name);
-        ArgumentNullException.ThrowIfNull(optionName);
+        ArgumentNullException.ThrowIfNull(optionsName);
         return services
             .AddService(name, (serviceProvider, _) =>
-                CreateConnectionFactory(serviceProvider, optionName));
+                CreateConnectionFactory(serviceProvider, optionsName));
     }
 
     private static IConnectionFactory CreateConnectionFactory(
         IServiceProvider serviceProvider,
-        string name)
+        object? name)
     {
         ArgumentNullException.ThrowIfNull(serviceProvider);
         ArgumentNullException.ThrowIfNull(name);
+        if (name is not string stringedName)
+        {
+            throw new ArgumentException("Invalid name");
+        }
+
         var monitor = serviceProvider.GetRequiredService<IOptionsMonitor<ConnectionOptions>>();
-        var options = monitor.Get(name);
-        return CreateConnectionFactoryInternal(serviceProvider, name, options);
+        var options = monitor.Get(stringedName);
+        return CreateConnectionFactoryInternal(serviceProvider, stringedName, options);
     }
 
     private static IConnectionFactory CreateConnectionFactoryInternal(

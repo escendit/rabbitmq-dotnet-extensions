@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <Description>RabbitMQ AMQP Client Extensions</Description>
-        <PackageTags>rabbitmq;client;amqp</PackageTags>
+        <Description>RabbitMQ AMQP Client Service Collection Extensions.</Description>
+        <PackageTags>rabbitmq;amqp;client;services</PackageTags>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="RabbitMQ.Client" />

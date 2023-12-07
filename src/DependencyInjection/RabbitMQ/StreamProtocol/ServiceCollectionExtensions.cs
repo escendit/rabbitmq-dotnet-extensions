@@ -157,7 +157,7 @@ public static class ServiceCollectionExtensions
     /// <param name="name">The name.</param>
     /// <param name="optionsName">The named option.</param>
     /// <returns>The updated service collection.</returns>
-    public static IServiceCollection AddRabbitMqStreamSystemFromOption(
+    public static IServiceCollection AddRabbitMqStreamSystemFromOptions(
         this IServiceCollection services,
         string name,
         string optionsName)
@@ -170,10 +170,15 @@ public static class ServiceCollectionExtensions
                 CreateStreamSystem(serviceProvider, optionsName));
     }
 
-    private static StreamSystem CreateStreamSystem(IServiceProvider serviceProvider, string name)
+    private static StreamSystem CreateStreamSystem(IServiceProvider serviceProvider, object? name)
     {
+        if (name is not string stringedName)
+        {
+            throw new ArgumentException("Invalid name");
+        }
+
         var monitor = serviceProvider.GetRequiredService<IOptionsMonitor<ConnectionOptions>>();
-        var options = monitor.Get(name);
+        var options = monitor.Get(stringedName);
         var config = CreateStreamSystemConfig(options);
         return CreateStreamSystemInternal(serviceProvider, config);
     }

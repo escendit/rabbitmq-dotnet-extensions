@@ -112,17 +112,22 @@ public static partial class ServiceCollectionExtensions
         return connectionFactory.CreateConnection(endpoints, clientProvidedName);
     }
 
-    private static IConnection CreateConnection(IServiceProvider serviceProvider, string name)
+    private static IConnection CreateConnection(IServiceProvider serviceProvider, object? name)
     {
         ArgumentNullException.ThrowIfNull(serviceProvider);
         ArgumentNullException.ThrowIfNull(name);
+
+        if (name is not string stringedName)
+        {
+            throw new ArgumentException("Invalid name");
+        }
 #if NET8_0_OR_GREATER
         var connectionFactory = serviceProvider.GetRequiredKeyedService<IConnectionFactory>(name);
         var optionsMonitor = serviceProvider.GetRequiredService<IOptionsMonitor<ConnectionOptions>>();
-        var options = optionsMonitor.Get(name);
+        var options = optionsMonitor.Get(stringedName);
 #else
-        var connectionFactory = serviceProvider.GetRequiredServiceByName<IConnectionFactory>(name);
-        var options = serviceProvider.GetOptionsByName<ConnectionOptions>(name);
+        var connectionFactory = serviceProvider.GetRequiredServiceByKey<object?, IConnectionFactory>(name);
+        var options = serviceProvider.GetOptionsByName<ConnectionOptions>(stringedName);
 #endif
         return Task
             .Run(() =>
@@ -136,7 +141,7 @@ public static partial class ServiceCollectionExtensions
             .GetResult();
     }
 
-    private static IConnection CreateConnectionFromFactory(IServiceProvider serviceProvider, string name)
+    private static IConnection CreateConnectionFromFactory(IServiceProvider serviceProvider, object? name)
     {
         ArgumentNullException.ThrowIfNull(serviceProvider);
         ArgumentNullException.ThrowIfNull(name);
@@ -146,7 +151,7 @@ public static partial class ServiceCollectionExtensions
         var monitor = serviceProvider.GetRequiredService<IOptionsMonitor<ConnectionOptions>>();
         var options = monitor.Get(optionName);
 #else
-        var connectionFactory = serviceProvider.GetRequiredServiceByName<IConnectionFactory>(name);
+        var connectionFactory = serviceProvider.GetRequiredServiceByKey<object?, IConnectionFactory>(name);
         var optionName = connectionFactory.ClientProperties[Constants.ClientPropertyOptionsNameKey] as string;
         var options = serviceProvider.GetOptionsByName<ConnectionOptions>(optionName);
 #endif
