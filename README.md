@@ -1,31 +1,31 @@
-# Escendit.Orleans.Clients.RabbitMQ
+# RabbitMQ Client Extensions for .NET and Orleans
 
 RabbitMQ Clients allow you to easily configure and manage RabbitMQ connections within
-your Orleans-based projects.
+your .NET projects
 
 ## Installation
 
 Choose from two different protocols
 
-### [AMQP Protocol](src/AmqpProtocol)
+### AMQP Protocol
 
-To install Escendit.Orleans.Clients.RabbitMQ.AmqpProtocol, run the following command in the Package Manager Console:
+[Escendit.Extensions.DependencyInjection.RabbitMQ.AmqpProtocol](src/DependencyInjection/RabbitMQ/AmqpProtocol)
 
-```powershell
-Install-Package Escendit.Orleans.Clients.RabbitMQ.AmqpProtocol
-```
+[Escendit.Extensions.Hosting.RabbitMQ.AmqpProtocol](src/Hosting/RabbitMQ/AmqpProtocol)
 
-### [Stream Protocol](src/StreamProtocol)
+[Escendit.AspNetCore.Builder.RabbitMQ.AmqpProtocol](src/AspNetCore/RabbitMQ/AmqpProtocol)
 
-To install Escendit.Orleans.Clients.RabbitMQ.StreamProtocol, run the following command in the Package Manager Console:
+### Stream Protocol
 
-```powershell
-Install-Package Escendit.Orleans.Clients.RabbitMQ.StreamProtocol
-```
+[Escendit.Extensions.DependencyInjection.RabbitMQ.StreamProtocol](src/DependencyInjection/RabbitMQ/StreamProtocol)
+
+[Escendit.Extensions.Hosting.RabbitMQ.StreamProtocol](src/Hosting/RabbitMQ/StreamProtocol)
+
+[Escendit.AspNetCore.Builder.RabbitMQ.StreamProtocol](src/AspNetCore/RabbitMQ/StreamProtocol)
 
 ## Contributing
 
-If you'd like to contribute to Escendit.Orleans.Clients.RabbitMQ,
+If you'd like to contribute to rabbitmq-dotnet-extensions,
 please fork the repository and make changes as you'd like.
 Pull requests are warmly welcome.
 

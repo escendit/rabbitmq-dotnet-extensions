@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <Description>RabbitMQ Stream Client Web Application Extensions.</Description>
+        <PackageTags>rabbitmq;stream;client;webapp;aspnet</PackageTags>
+    </PropertyGroup>
+    <ItemGroup>
+        <FrameworkReference Include="Microsoft.AspNetCore.App"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\..\..\Hosting\RabbitMQ\StreamProtocol\Escendit.Extensions.Hosting.RabbitMQ.StreamProtocol.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <None Pack="true" PackagePath="" Include="README.md"/>
+    </ItemGroup>
+</Project>

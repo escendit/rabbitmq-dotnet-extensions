@@ -1,9 +1,8 @@
-name: dotnet test report
+name: report
 on:
   workflow_run:
-    workflows: ['dotnet build']
-    types:
-      - completed
+    workflows: [build]
+    types: [completed]
 jobs:
   report:
     runs-on: ubuntu-latest
