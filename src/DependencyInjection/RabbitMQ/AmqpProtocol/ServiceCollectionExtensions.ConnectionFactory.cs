@@ -113,7 +113,7 @@ public static partial class ServiceCollectionExtensions
         return CreateConnectionFactoryInternal(serviceProvider, stringedName, options);
     }
 
-    private static IConnectionFactory CreateConnectionFactoryInternal(
+    private static ConnectionFactory CreateConnectionFactoryInternal(
         IServiceProvider serviceProvider,
         string name,
         ConnectionOptions options)
