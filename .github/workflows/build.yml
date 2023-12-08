@@ -21,7 +21,7 @@ jobs:
       - name: Build .NET Solution
         run: dotnet build --configuration Release --no-restore
       - name: Test .NET Solution
-        run: dotnet test --configuration Release --no-build --filter=Category=UnitTest --logger "trx;LogFileName=test-results.trx"
+        run: dotnet test --configuration Release --no-build --filter=Category=UnitTest --logger "trx;LogFileName=test-results-{framework}.trx"
       - uses: actions/upload-artifact@v2
         if: success() || failure()
         with:
