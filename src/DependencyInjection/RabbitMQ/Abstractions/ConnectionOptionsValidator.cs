@@ -25,7 +25,7 @@ internal class ConnectionOptionsValidator : IValidateOptions<ConnectionOptions>
             errors.Add($"Expecting at least one endpoint for '{name}'");
         }
 
-        return errors.Any()
+        return errors.Count != 0
             ? ValidateOptionsResult.Fail(errors)
             : ValidateOptionsResult.Success;
     }
