@@ -11,5 +11,5 @@ jobs:
         with:
           artifact: test-results
           name: dotnet tests
-          path: '**/test-results.trx'
+          path: '**/test-results-*.trx'
           reporter: dotnet-trx
