@@ -167,7 +167,7 @@ public static partial class ServiceCollectionExtensions
             .GetResult();
     }
 
-    private static IList<AmqpTcpEndpoint> BuildEndpoints(ConnectionOptions options)
+    private static List<AmqpTcpEndpoint> BuildEndpoints(ConnectionOptions options)
     {
         return options
             .Endpoints
