@@ -21,10 +21,10 @@
         <PackageVersion Include="xunit.runner.visualstudio" Version="2.5.4"/>
     </ItemGroup>
     <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
-        <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="7.0.0"/>
-        <PackageVersion Include="Microsoft.Extensions.Hosting" Version="7.0.1"/>
-        <PackageVersion Include="Microsoft.Extensions.Options" Version="7.0.1"/>
-        <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="7.0.0"/>
+        <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0"/>
+        <PackageVersion Include="Microsoft.Extensions.Hosting" Version="8.0.0"/>
+        <PackageVersion Include="Microsoft.Extensions.Options" Version="8.0.0"/>
+        <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="8.0.0"/>
         <PackageVersion Include="Microsoft.Orleans.Core" Version="7.2.4"/>
         <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.1.1"/>
     </ItemGroup>
